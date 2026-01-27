@@ -1,0 +1,75 @@
+[gd_scene load_steps=6 format=3 uid="uid://yveqpien8moy"]
+
+[ext_resource type="PackedScene" uid="uid://dyitlmlgu0cn0" path="res://player.tscn" id="1_ig7tw"]
+[ext_resource type="PackedScene" uid="uid://ch82yqlt1qiuk" path="res://enemy.tscn" id="2_h2yge"]
+[ext_resource type="Script" uid="uid://c5n5sfrt8qvx3" path="res://hp_bar.gd" id="3_h2yge"]
+[ext_resource type="Script" uid="uid://c7u5pqyj4eda6" path="res://hp_enemy.gd" id="3_lquwl"]
+[ext_resource type="Script" uid="uid://eoqf8fqfp6br" path="res://hp_up.gd" id="4_1bvp3"]
+
+[node name="Main" type="Node2D"]
+
+[node name="TextEdit" type="TextEdit" parent="."]
+offset_left = 4.0
+offset_top = 3.0
+offset_right = 695.0
+offset_bottom = 277.0
+text = "THIS IS A TEST
+THIS IS THE HP BAR
+
+
+THIS IS FOR HEALS"
+
+[node name="Player" parent="." instance=ExtResource("1_ig7tw")]
+position = Vector2(682, 486)
+
+[node name="enemy" parent="." instance=ExtResource("2_h2yge")]
+position = Vector2(1014, 119)
+
+[node name="TextEdit2" type="TextEdit" parent="."]
+offset_left = 944.0
+offset_top = 2.0
+offset_right = 1077.0
+offset_bottom = 47.0
+text = "Test Dummy"
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="HPEnemy" type="ProgressBar" parent="CanvasLayer" node_paths=PackedStringArray("enemy")]
+offset_left = 912.0
+offset_top = 197.0
+offset_right = 1111.0
+offset_bottom = 224.0
+value = 100.0
+script = ExtResource("3_lquwl")
+enemy = NodePath("../../enemy")
+
+[node name="HPBar" type="ProgressBar" parent="CanvasLayer" node_paths=PackedStringArray("player")]
+anchors_preset = -1
+anchor_right = 0.021701388
+offset_left = 10.0
+offset_top = 58.0
+offset_right = 131.0
+offset_bottom = 85.0
+value = 100.0
+script = ExtResource("3_h2yge")
+player = NodePath("../../Player")
+metadata/_edit_use_anchors_ = true
+
+[node name="HpUp" type="Button" parent="." node_paths=PackedStringArray("player")]
+offset_left = 12.0
+offset_top = 143.0
+offset_right = 142.0
+offset_bottom = 184.0
+text = "Heal"
+script = ExtResource("4_1bvp3")
+player = NodePath("../Player")
+
+[node name="TakeDamage" type="Timer" parent="."]
+wait_time = 2.0
+
+[node name="CanDamage" type="Timer" parent="."]
+wait_time = 3.0
+
+[connection signal="pressed" from="HpUp" to="HpUp" method="_on_pressed"]
+[connection signal="timeout" from="TakeDamage" to="enemy" method="_on_take_damage_timeout"]
+[connection signal="timeout" from="CanDamage" to="enemy" method="_on_can_damage_timeout"]
