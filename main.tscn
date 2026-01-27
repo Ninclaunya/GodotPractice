@@ -17,7 +17,11 @@ text = "THIS IS A TEST
 THIS IS THE HP BAR
 
 
-THIS IS FOR HEALS"
+THIS IS FOR HEALS
+
+
+
+CLIK THE ENEMY TO HURT IT"
 
 [node name="Player" parent="." instance=ExtResource("1_ig7tw")]
 position = Vector2(682, 486)
@@ -64,12 +68,4 @@ text = "Heal"
 script = ExtResource("4_1bvp3")
 player = NodePath("../Player")
 
-[node name="TakeDamage" type="Timer" parent="."]
-wait_time = 2.0
-
-[node name="CanDamage" type="Timer" parent="."]
-wait_time = 3.0
-
 [connection signal="pressed" from="HpUp" to="HpUp" method="_on_pressed"]
-[connection signal="timeout" from="TakeDamage" to="enemy" method="_on_take_damage_timeout"]
-[connection signal="timeout" from="CanDamage" to="enemy" method="_on_can_damage_timeout"]
