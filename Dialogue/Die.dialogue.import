@@ -1,0 +1,16 @@
+[remap]
+
+importer="dialogue_manager"
+importer_version=15
+type="Resource"
+uid="uid://bxn88288263co"
+path="res://.godot/imported/Die.dialogue-428f769d0597ec12d0a5b85a027c8e04.tres"
+
+[deps]
+
+source_file="res://Dialogue/Die.dialogue"
+dest_files=["res://.godot/imported/Die.dialogue-428f769d0597ec12d0a5b85a027c8e04.tres"]
+
+[params]
+
+defaults=true

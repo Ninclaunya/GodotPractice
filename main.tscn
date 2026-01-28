@@ -1,33 +1,47 @@
-[gd_scene load_steps=6 format=3 uid="uid://yveqpien8moy"]
+[gd_scene load_steps=9 format=3 uid="uid://yveqpien8moy"]
 
 [ext_resource type="PackedScene" uid="uid://dyitlmlgu0cn0" path="res://player.tscn" id="1_ig7tw"]
 [ext_resource type="PackedScene" uid="uid://ch82yqlt1qiuk" path="res://enemy.tscn" id="2_h2yge"]
+[ext_resource type="PackedScene" uid="uid://chfkt7ek4lucb" path="res://actionable.tscn" id="3_272bh"]
 [ext_resource type="Script" uid="uid://c5n5sfrt8qvx3" path="res://hp_bar.gd" id="3_h2yge"]
 [ext_resource type="Script" uid="uid://c7u5pqyj4eda6" path="res://hp_enemy.gd" id="3_lquwl"]
 [ext_resource type="Script" uid="uid://eoqf8fqfp6br" path="res://hp_up.gd" id="4_1bvp3"]
+[ext_resource type="Resource" uid="uid://cjphgqowdbn4m" path="res://Dialogue/Chat.dialogue" id="4_5vw27"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kek77"]
+size = Vector2(204, 199)
 
 [node name="Main" type="Node2D"]
 
 [node name="TextEdit" type="TextEdit" parent="."]
 offset_left = 4.0
 offset_top = 3.0
-offset_right = 695.0
-offset_bottom = 277.0
-text = "THIS IS A TEST
+offset_right = 282.0
+offset_bottom = 297.0
+placeholder_text = "THIS IS A TEST
 THIS IS THE HP BAR
 
 
 THIS IS FOR HEALS
 
 
-
-CLIK THE ENEMY TO HURT IT"
+LEFT CLIK THE ENEMY TO HURT IT
+GET CLOSE THEN
+RIGHT CLICK TO TALK TO IT"
+editable = false
 
 [node name="Player" parent="." instance=ExtResource("1_ig7tw")]
-position = Vector2(682, 486)
+position = Vector2(595, 448)
 
 [node name="enemy" parent="." instance=ExtResource("2_h2yge")]
 position = Vector2(1014, 119)
+
+[node name="Actionable" parent="enemy" instance=ExtResource("3_272bh")]
+dialogue_resource = ExtResource("4_5vw27")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="enemy/Actionable"]
+position = Vector2(-2, 10.5)
+shape = SubResource("RectangleShape2D_kek77")
 
 [node name="TextEdit2" type="TextEdit" parent="."]
 offset_left = 944.0
@@ -46,6 +60,7 @@ offset_bottom = 224.0
 value = 100.0
 script = ExtResource("3_lquwl")
 enemy = NodePath("../../enemy")
+metadata/_edit_use_anchors_ = true
 
 [node name="HPBar" type="ProgressBar" parent="CanvasLayer" node_paths=PackedStringArray("player")]
 anchors_preset = -1
@@ -68,4 +83,8 @@ text = "Heal"
 script = ExtResource("4_1bvp3")
 player = NodePath("../Player")
 
+[node name="TakeDamage" type="Timer" parent="."]
+one_shot = true
+
 [connection signal="pressed" from="HpUp" to="HpUp" method="_on_pressed"]
+[connection signal="timeout" from="TakeDamage" to="enemy" method="_on_take_damage_timeout"]

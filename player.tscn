@@ -1,10 +1,13 @@
-[gd_scene load_steps=4 format=3 uid="uid://dyitlmlgu0cn0"]
+[gd_scene load_steps=5 format=3 uid="uid://dyitlmlgu0cn0"]
 
 [ext_resource type="Texture2D" uid="uid://cpvtal4oilaqd" path="res://icon.svg" id="1_4flbx"]
 [ext_resource type="Script" uid="uid://rjbt1w8qifv3" path="res://player.gd" id="1_onrkg"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_i3pqv"]
 size = Vector2(127, 124.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_onrkg"]
+size = Vector2(198, 185)
 
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_onrkg")
@@ -15,3 +18,13 @@ texture = ExtResource("1_4flbx")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(1.5, -0.25)
 shape = SubResource("RectangleShape2D_i3pqv")
+
+[node name="Direction" type="Marker2D" parent="."]
+
+[node name="ActionableFinder" type="Area2D" parent="Direction"]
+collision_layer = 0
+collision_mask = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Direction/ActionableFinder"]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_onrkg")
