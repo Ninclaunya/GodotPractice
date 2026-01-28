@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://yveqpien8moy"]
+[gd_scene load_steps=11 format=3 uid="uid://yveqpien8moy"]
 
 [ext_resource type="PackedScene" uid="uid://dyitlmlgu0cn0" path="res://player.tscn" id="1_ig7tw"]
 [ext_resource type="PackedScene" uid="uid://ch82yqlt1qiuk" path="res://enemy.tscn" id="2_h2yge"]
@@ -10,6 +10,12 @@
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kek77"]
 size = Vector2(204, 199)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_272bh"]
+size = Vector2(1403, 125)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5vw27"]
+size = Vector2(376, 801.5)
 
 [node name="Main" type="Node2D"]
 
@@ -85,6 +91,32 @@ player = NodePath("../Player")
 
 [node name="TakeDamage" type="Timer" parent="."]
 one_shot = true
+
+[node name="Border" type="Node2D" parent="."]
+
+[node name="Up" type="StaticBody2D" parent="Border"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Border/Up"]
+position = Vector2(659, -63)
+shape = SubResource("RectangleShape2D_272bh")
+
+[node name="Down" type="StaticBody2D" parent="Border"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Border/Down"]
+position = Vector2(627, 786)
+shape = SubResource("RectangleShape2D_272bh")
+
+[node name="Left" type="StaticBody2D" parent="Border"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Border/Left"]
+position = Vector2(-190, 376.25)
+shape = SubResource("RectangleShape2D_5vw27")
+
+[node name="Left2" type="StaticBody2D" parent="Border"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Border/Left2"]
+position = Vector2(1471, 372)
+shape = SubResource("RectangleShape2D_5vw27")
 
 [connection signal="pressed" from="HpUp" to="HpUp" method="_on_pressed"]
 [connection signal="timeout" from="TakeDamage" to="enemy" method="_on_take_damage_timeout"]

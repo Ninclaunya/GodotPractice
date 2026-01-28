@@ -28,13 +28,13 @@ func _process(delta: float) -> void:
 		if body.has_method("deal_damage"):
 			body.deal_damage(self)
 
-func _unhandled_input(event: InputEvent) -> void:
-	if Input.is_action_just_pressed("click"):
-		var actionables = actionable_finder.get_overlapping_areas()
-		if actionables.size() > 0 and temp:
-			temp = false
-			DialogueManager.show_example_dialogue_balloon(load("res://Dialogue/Chat.dialogue"), "start")
-			return
+#func _unhandled_input(event: InputEvent) -> void:
+	#if Input.is_action_just_pressed("click"):
+		#var actionables = actionable_finder.get_overlapping_areas()
+		#if actionables.size() > 0 and temp:
+			#temp = false
+			#DialogueManager.show_example_dialogue_balloon(load("res://Dialogue/Chat.dialogue"), "start")
+			#return
 
 func hurt(area):
 	currentHealth -= 10
