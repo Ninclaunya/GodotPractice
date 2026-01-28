@@ -9,7 +9,7 @@ signal healthChanged
 @onready var currentHealth := maxHealth
 
 @onready var actionable_finder: Area2D = $Direction/ActionableFinder
-var temp := true
+#var temp := true
 var isHurt := false
 
 # Called when the node enters the scene tree for the first time.
